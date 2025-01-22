@@ -3,6 +3,9 @@ session_start();
 include("functions.php");
 check_session_id();
 
+// セッションから読み込み
+$user_id = $_SESSION["user_id"];
+
 $pdo = connect_to_db();
 
 $sql = "SELECT * FROM todo_table ORDER BY deadline ASC";
@@ -23,6 +26,7 @@ foreach ($result as $record) {
     <tr>
       <td>{$record["deadline"]}</td>
       <td>{$record["todo"]}</td>
+      <td><a href='like_create.php?user_id={$user_id}&todo_id={$record["id"]}'>like</a></td>
       <td><a href='todo_edit.php?id={$record["id"]}'>edit</a></td>
       <td><a href='todo_delete.php?id={$record["id"]}'>delete</a></td>
     </tr>
